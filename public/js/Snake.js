@@ -18,6 +18,7 @@ export default class Snake {
         );
         this.apple = this.scene.add
             .rectangle(0, 0, this.tileSize, this.tileSize, 0x00ff00)
+            .setOrigin(0);
             
 
         this.positionApple();
