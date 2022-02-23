@@ -3,7 +3,7 @@ export default class Snake {
         this.scene = scene;
         this.lastMoveTime = 0;
         this.moveInterval = 100; // ms
-        this.tileSize = 16;
+        this.tileSize = 16; // px
         this.direction = Phaser.Math.Vector2.DOWN; // [x, y]: um vetor que vai indicar a direção
         this.body = [];
         this.body.push(
@@ -22,7 +22,8 @@ export default class Snake {
             
 
         this.positionApple();
-
+        
+        // quando uma das setas do teclado forem pressionadas
         scene.input.keyboard.on('keydown', e => {
             this.keydown(e);
         });
@@ -79,6 +80,7 @@ export default class Snake {
     }
     
     move() {
+        // pegando a nova posição da cabeça
         let x = this.body[0].x + this.direction.x * this.tileSize;
         let y = this.body[0].y + this.direction.y * this.tileSize;
 
@@ -88,12 +90,13 @@ export default class Snake {
             this.positionApple();
         }
 
-
+        // passando todos os retangulos pra posição do da frente
         for(let index = this.body.length - 1; index > 0; index--) {
             this.body[index].x = this.body[index-1].x;
             this.body[index].y = this.body[index-1].y;
         }
 
+        // passado a cabeça pra nova posição
         this.body[0].x = x; 
         this.body[0].y = y;
 
@@ -108,8 +111,8 @@ export default class Snake {
         }
 
         // morte comendo o proprio corpo
-        let tail = this.body.slice(1); // slice() pega um pedaço do vetor que comecao na posção 1 e termina nmo fim
-        /* o some() eh como se fosse um forEach() -> vai retornar verdadeiro se algum retangulos cumprir a comdição */
+        let tail = this.body.slice(1); // slice() pega um pedaço do vetor que comecao na posção 1 e termina no fim
+        /* o some() é como se fosse um forEach() -> vai retornar verdadeiro se algum retangulos cumprir a condição */
         if(tail.some(s => s.x === this.body[0].x && s.y === this.body[0].y)) {
             this.scene.scene.restart();
         }
