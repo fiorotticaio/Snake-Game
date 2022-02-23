@@ -7,6 +7,7 @@ export default class Snake {
         this.direction = Phaser.Math.Vector2.DOWN; // [x, y]: um vetor que vai indicar a direção
         this.body = [];
         this.body.push(
+            // adicionando um retângulo vermelho (cabeça)
             this.scene.add  
                 .rectangle(
                     this.scene.game.config.width / 2,
@@ -84,9 +85,11 @@ export default class Snake {
         let x = this.body[0].x + this.direction.x * this.tileSize;
         let y = this.body[0].y + this.direction.y * this.tileSize;
 
+        // comeu a maçã
         if(this.apple.x === x && this.apple.y === y) {
-            // comendo a maça
+            // adicionado um retangulo branco (corpo)
             this.body.push(this.scene.add.rectangle(0, 0, this.tileSize, this.tileSize, 0xffffff).setOrigin(0));
+            // trocando a maçã de lugar
             this.positionApple();
         }
 
